@@ -81,6 +81,7 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -152,7 +153,11 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
+            buildConfigField "String", "CODEPUSH_KEY", '""'
+        }
+        releaseStaging {
+           buildConfigField "String", "CODEPUSH_KEY", '"NTEuKRntobFnYT7JoJG2OdbglFhjteAzHva7G"'
+          matchingFallbacks = ['debug','release'] //if doesn't have releaseStaging, search for debug or release
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -160,6 +165,8 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+
+            buildConfigField "String", "CODEPUSH_KEY", '"5eqWrPWr6L-pjlkd7fet88GvXj3y1rTHCcOWW"'
         }
     }
     // applicationVariants are e.g. debug, release

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Atelie Paulas Candy</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">CODEPUSH_KEY</string>
 </resources>
