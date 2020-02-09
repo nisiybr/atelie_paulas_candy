@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import getRealm from '../../services/realm';
 
 import {
   Container,
@@ -13,98 +14,29 @@ import {
 } from './styles';
 
 export default function Products({navigation}) {
+  const [products, setProducts] = useState([]);
+
+  async function loadProducts() {
+    const realm = await getRealm();
+    const data = realm.objects('Product').sorted('name');
+
+    setProducts(data);
+  }
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
   // Adicionar funcao
   function handleNavigate() {
     navigation.navigate('CreateProduct');
   }
 
-  const data = [
-    {
-      id: 1,
-      name: 'Doce de Leite com Coco',
-      brand: 'Tatitânia',
-      description: 'Para dietas de Ingestão Controlada de Açucares',
-    },
-    {
-      id: 2,
-      name:
-        'Doce de Leite com Geleia de Ameixa Doce de Leite com Geleia de Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 3,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 4,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 5,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 6,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 7,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 8,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 9,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 10,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 11,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 12,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-    {
-      id: 13,
-      name: 'Doce de Leite Ameixa',
-      brand: 'Tatitânia',
-      description: '',
-    },
-  ];
-
   return (
     <Container>
       <ProductList
-        data={data}
+        data={products}
         keyExtractor={item => String(item.id)}
+        keyboardShouldPersistTaps="handled"
         renderItem={({item}) => (
           <Product>
             <ProductName>{item.name}</ProductName>
