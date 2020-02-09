@@ -8,7 +8,11 @@ import 'react-native-gesture-handler';
 export default function Index() {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#7098FF" />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
       <App />
     </>
   );

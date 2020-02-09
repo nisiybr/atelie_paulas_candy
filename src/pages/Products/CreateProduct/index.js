@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import uuid from 'react-native-uuid';
+import getRealm from '../../../services/realm';
 
 import {
   Container,
@@ -11,20 +13,63 @@ import {
   Label,
 } from './styles';
 
-export default function CreateProduct() {
+export default function CreateProduct(navigation) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [brand, setBrand] = useState('');
+  const [neto, setNeto] = useState('');
+
+  async function SaveProduct() {
+    // try {
+    const netoConverted = parseInt(neto);
+
+    const data = {
+      id: uuid.v1(),
+      name,
+      description,
+      brand,
+      neto: netoConverted,
+    };
+    const realm = await getRealm();
+    realm.write(() => {
+      realm.create('Product', data);
+    });
+    console.log('Ok');
+    // } catch (err) {
+    //   console.log('Erro');
+    // }
+  }
+
   return (
     <Container>
       <Form>
         <Label>Nome do Produto</Label>
-        <Input placeholder="Digite o nome do Produto" />
+        <Input
+          placeholder="Digite o nome do Produto"
+          value={name}
+          onChangeText={setName}
+        />
         <Label>Descrição</Label>
-        <InputMulti placeholder="Opcional" />
+        <InputMulti
+          placeholder="Opcional"
+          value={description}
+          onChangeText={setDescription}
+        />
         <Label>Marca</Label>
-        <Input placeholder="Selecione a marca do Produto" />
+        <Input
+          placeholder="Selecione a marca do Produto"
+          value={brand}
+          onChangeText={setBrand}
+        />
         <Label>Peso Líquido (gramas)</Label>
-        <Input placeholder="Informe o peso líquido" keyboardType="number-pad" />
+        <Input
+          placeholder="Informe o peso líquido"
+          keyboardType="number-pad"
+          value={neto}
+          onChangeText={setNeto}
+        />
       </Form>
-      <DefaultButton>
+      <DefaultButton onPress={SaveProduct}>
         <Icon name="save" size={30} color="#fff" />
         <DefaultButtonText>Salvar</DefaultButtonText>
       </DefaultButton>

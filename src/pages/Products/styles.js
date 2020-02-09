@@ -10,6 +10,7 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const ProductList = styled.FlatList`
+  width: 100%;
   background-color: #fff;
   border-radius: 10px;
   padding: 0 10px;
@@ -48,6 +49,7 @@ export const DefaultButton = styled(RectButton)`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 10px;
 `;
 export const DefaultButtonText = styled.Text`
   color: #ffffff;

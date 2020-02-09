@@ -66,6 +66,7 @@ export const DefaultButton = styled(RectButton)`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 10px;
 `;
 export const DefaultButtonText = styled.Text`
   color: #ffffff;
