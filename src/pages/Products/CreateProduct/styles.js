@@ -11,13 +11,13 @@ export const Container = styled.SafeAreaView`
 
 export const Form = styled.View`
   background-color: #ececec;
-  padding: 25px;
+  padding: 5px 25px;
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 20px;
   border-radius: 10px;
   width: 100%;
-  min-height: 400px;
+  min-height: 300px;
 `;
 
 export const Label = styled.Text`
@@ -37,9 +37,9 @@ export const Input = styled.TextInput.attrs({
   border: 1px solid #dddddd;
   border-radius: 9px;
   font-size: 16px;
-  padding: 12px;
+  padding: 6px 12px;
   color: #7c7c7c;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 `;
 
 export const InputMulti = styled.TextInput.attrs({
@@ -66,7 +66,7 @@ export const DefaultButton = styled(RectButton)`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 `;
 export const DefaultButtonText = styled.Text`
   color: #ffffff;
