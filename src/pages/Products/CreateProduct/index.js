@@ -13,31 +13,32 @@ import {
   Label,
 } from './styles';
 
-export default function CreateProduct(navigation) {
+export default function CreateProduct({navigation}) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [brand, setBrand] = useState('');
   const [neto, setNeto] = useState('');
 
   async function SaveProduct() {
-    // try {
-    const netoConverted = parseInt(neto);
+    try {
+      const netoConverted = parseInt(neto);
 
-    const data = {
-      id: uuid.v1(),
-      name,
-      description,
-      brand,
-      neto: netoConverted,
-    };
-    const realm = await getRealm();
-    realm.write(() => {
-      realm.create('Product', data);
-    });
-    console.log('Ok');
-    // } catch (err) {
-    //   console.log('Erro');
-    // }
+      const data = {
+        id: uuid.v1(),
+        name,
+        description,
+        brand,
+        neto: netoConverted,
+      };
+      const realm = await getRealm();
+      realm.write(() => {
+        realm.create('Product', data);
+      });
+
+      navigation.navigate('Products');
+    } catch (err) {
+      console.log('Erro');
+    }
   }
 
   return (
