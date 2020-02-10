@@ -24,7 +24,7 @@ export default function Products({navigation}) {
   }
   useEffect(() => {
     loadProducts();
-  }, []);
+  }, [products]);
 
   // Adicionar funcao
   function handleNavigate() {
