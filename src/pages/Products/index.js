@@ -6,6 +6,7 @@ import {
   Container,
   ProductList,
   Product,
+  ProductButton,
   ProductName,
   ProductBrand,
   ProductDescription,
@@ -37,11 +38,13 @@ export default function Products({navigation}) {
         data={products}
         keyExtractor={item => String(item.id)}
         keyboardShouldPersistTaps="handled"
-        renderItem={({item}) => (
-          <Product>
-            <ProductName>{item.name}</ProductName>
-            <ProductBrand>{item.brand}</ProductBrand>
-            <ProductDescription>{item.description}</ProductDescription>
+        renderItem={({item, index}) => (
+          <Product index={index}>
+            <ProductButton>
+              <ProductName>{item.name}</ProductName>
+              <ProductBrand>{item.brand}</ProductBrand>
+              <ProductDescription>{item.description}</ProductDescription>
+            </ProductButton>
           </Product>
         )}
       />

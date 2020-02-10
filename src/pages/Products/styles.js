@@ -3,7 +3,6 @@ import {RectButton} from 'react-native-gesture-handler';
 
 export const Container = styled.SafeAreaView`
   background-color: #cfcfcf;
-  padding: 20px;
   align-items: center;
   justify-content: space-between;
   flex: 1;
@@ -12,17 +11,25 @@ export const Container = styled.SafeAreaView`
 export const ProductList = styled.FlatList`
   width: 100%;
   background-color: #fff;
-  border-radius: 10px;
-  padding: 0 10px;
-  margin-bottom: 20px;
 `;
-export const Product = styled(RectButton)`
-  background-color: #bccbff;
-  border-radius: 10px;
+export const Product = styled.View.attrs({
+  elevation: 5,
+  shadowOpacity: 0.7,
+  shadowRadius: 3.84,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowColor: '#000',
+})`
+  background-color: ${props => (props.index % 2 === 0 ? '#bccbff' : '#C1C1C1')};
   min-height: 100px;
-  margin-top: 10px;
-  padding: 15px;
 `;
+export const ProductButton = styled(RectButton)`
+  flex: 1;
+  padding: 10px 15px;
+`;
+
 export const ProductName = styled.Text`
   color: #4743ff;
   font-weight: bold;
@@ -41,18 +48,17 @@ export const ProductDescription = styled.Text`
   margin-top: 5px;
 `;
 export const DefaultButton = styled(RectButton)`
-  background-color: #88a9ff;
-  border-radius: 10px;
-  height: 40px;
-  width: 260px;
-  padding: 7px 40px;
+  background-color: #2151cb;
+  height: 50px;
+  width: 100%;
+  padding: 7px 0;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
 `;
 export const DefaultButtonText = styled.Text`
   color: #ffffff;
+  margin-left: 20px;
   font-weight: bold;
   font-size: 16px;
 `;

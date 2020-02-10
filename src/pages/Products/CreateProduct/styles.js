@@ -3,7 +3,6 @@ import {RectButton} from 'react-native-gesture-handler';
 
 export const Container = styled.SafeAreaView`
   background-color: #cfcfcf;
-  padding: 20px;
   align-items: center;
   justify-content: space-between;
   flex: 1;
@@ -11,22 +10,21 @@ export const Container = styled.SafeAreaView`
 
 export const Form = styled.View`
   background-color: #ececec;
-  padding: 5px 25px;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 20px;
-  border-radius: 10px;
   width: 100%;
-  min-height: 300px;
+  flex: 1;
 `;
 
 export const Label = styled.Text`
+  margin-top: 8px;
+  margin-left: 22px;
+  margin-bottom: 4px;
   font-size: 16px;
   font-weight: bold;
   color: #323232;
   width: 100%;
   text-align: left;
-  margin-bottom: 8px;
 `;
 
 export const Input = styled.TextInput.attrs({
@@ -35,9 +33,8 @@ export const Input = styled.TextInput.attrs({
   background: #f7f7f7;
   width: 100%;
   border: 1px solid #dddddd;
-  border-radius: 9px;
   font-size: 16px;
-  padding: 6px 12px;
+  padding: 6px 20px;
   color: #7c7c7c;
   margin-bottom: 8px;
 `;
@@ -50,26 +47,24 @@ export const InputMulti = styled.TextInput.attrs({
   background: #f7f7f7;
   width: 100%;
   border: 1px solid #dddddd;
-  border-radius: 9px;
   font-size: 16px;
-  padding: 12px;
+  padding: 6px 20px;
   color: #7c7c7c;
   text-align-vertical: top;
 `;
 
 export const DefaultButton = styled(RectButton)`
-  background-color: #88a9ff;
-  border-radius: 10px;
-  height: 40px;
-  width: 260px;
-  padding: 7px 40px;
+  background-color: #2151cb;
+  height: 50px;
+  width: 100%;
+  padding: 7px 0;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
 `;
 export const DefaultButtonText = styled.Text`
   color: #ffffff;
+  margin-left: 20px;
   font-weight: bold;
   font-size: 16px;
 `;
