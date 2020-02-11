@@ -56,7 +56,7 @@ export default function Products({navigation}) {
       [
         {
           text: 'Não quero!',
-          onPress: () => console.tron.log('Negativa'),
+          onPress: () => {},
           style: 'cancel',
         },
         {
