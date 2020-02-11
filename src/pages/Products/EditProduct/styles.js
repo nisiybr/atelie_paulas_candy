@@ -1,21 +1,20 @@
 import styled from 'styled-components/native';
 import {RectButton} from 'react-native-gesture-handler';
 
-export const Container = styled.SafeAreaView`
-  background-color: #cfcfcf;
-  align-items: center;
-  justify-content: space-between;
-  flex: 1;
-`;
-
-export const Form = styled.KeyboardAvoidingView.attrs({
-  behavior: 'padding',
+export const Container = styled.KeyboardAvoidingView.attrs({
+  behaviour: 'padding',
 })`
   background-color: #ececec;
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
   flex: 1;
+  justify-content: space-between;
+`;
+
+export const Form = styled.View`
+  background-color: #ececec;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
 `;
 
 export const Label = styled.Text`

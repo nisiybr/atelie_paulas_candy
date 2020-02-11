@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import {KeyboardAvoidingView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import uuid from 'react-native-uuid';
 import getRealm from '../../../services/realm';
