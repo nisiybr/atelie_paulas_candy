@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Alert} from 'react-native';
 import getRealm from '../../services/realm';
 
 import {
@@ -7,6 +8,7 @@ import {
   ProductList,
   Product,
   ProductButton,
+  DeleteButton,
   ProductName,
   ProductBrand,
   ProductDescription,
@@ -19,9 +21,22 @@ export default function Products({navigation}) {
 
   async function loadProducts() {
     const realm = await getRealm();
-    const data = realm.objects('Product').sorted('name');
+    const data = realm
+      .objects('Product')
+      .sorted('name')
+      .filtered('active=true');
 
     setProducts(data);
+  }
+  async function deleteProducts(id) {
+    const realm = await getRealm();
+    realm.write(() => {
+      const data = {
+        id,
+        active: false,
+      };
+      realm.create('Product', data, 'modified');
+    });
   }
   useEffect(() => {
     loadProducts();
@@ -30,6 +45,27 @@ export default function Products({navigation}) {
   // Adicionar funcao
   function handleNavigate() {
     navigation.navigate('CreateProduct');
+  }
+  function handleEdit(item) {
+    navigation.navigate('EditProduct', {item});
+  }
+  function handleDelete(item) {
+    Alert.alert(
+      'Confirma Exclusão',
+      `Você deseja realmente excluir o Produto: "${item.name}"?`,
+      [
+        {
+          text: 'Não quero!',
+          onPress: () => console.tron.log('Negativa'),
+          style: 'cancel',
+        },
+        {
+          text: 'Quero Excluir!',
+          onPress: () => deleteProducts(item.id),
+        },
+      ],
+      {cancelable: false},
+    );
   }
 
   return (
@@ -40,11 +76,15 @@ export default function Products({navigation}) {
         keyboardShouldPersistTaps="handled"
         renderItem={({item, index}) => (
           <Product index={index}>
-            <ProductButton>
+            <ProductButton onPress={() => handleEdit(item)}>
               <ProductName>{item.name}</ProductName>
               <ProductBrand>{item.brand}</ProductBrand>
               <ProductDescription>{item.description}</ProductDescription>
+              <ProductDescription>{item.active}</ProductDescription>
             </ProductButton>
+            <DeleteButton onPress={() => handleDelete(item)}>
+              <Icon name="delete-sweep" size={30} color="#FA5F5F" />
+            </DeleteButton>
           </Product>
         )}
       />

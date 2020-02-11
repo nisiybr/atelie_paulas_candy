@@ -24,10 +24,16 @@ export const Product = styled.View.attrs({
 })`
   background-color: ${props => (props.index % 2 === 0 ? '#bccbff' : '#C1C1C1')};
   min-height: 100px;
+  flex-direction: row;
 `;
 export const ProductButton = styled(RectButton)`
   flex: 1;
   padding: 10px 15px;
+`;
+export const DeleteButton = styled(RectButton)`
+  padding: 0px 10px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ProductName = styled.Text`

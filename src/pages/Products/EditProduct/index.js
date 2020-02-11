@@ -1,6 +1,5 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import uuid from 'react-native-uuid';
 import getRealm from '../../../services/realm';
 
 import {
@@ -12,7 +11,8 @@ import {
   Label,
 } from './styles';
 
-export default function CreateProduct({navigation}) {
+export default function EditProduct({navigation}) {
+  const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [brand, setBrand] = useState('');
@@ -22,12 +22,21 @@ export default function CreateProduct({navigation}) {
   const brandRef = useRef();
   const netoRef = useRef();
 
+  useEffect(() => {
+    const data = navigation.getParam('item');
+    setId(data.id);
+    setName(data.name);
+    setDescription(data.description);
+    setBrand(data.brand);
+    setNeto(String(data.neto));
+  }, [navigation]);
+
   async function SaveProduct() {
     try {
       const netoConverted = parseInt(neto);
 
       const data = {
-        id: uuid.v1(),
+        id,
         name,
         description,
         brand,
@@ -35,7 +44,7 @@ export default function CreateProduct({navigation}) {
       };
       const realm = await getRealm();
       realm.write(() => {
-        realm.create('Product', data);
+        realm.create('Product', data, 'modified');
       });
 
       navigation.navigate('Products');
@@ -92,8 +101,8 @@ export default function CreateProduct({navigation}) {
   );
 }
 
-CreateProduct.navigationOptions = {
-  headerTitle: 'Cadastrar Produto',
+EditProduct.navigationOptions = {
+  headerTitle: 'Editar Produto',
   headerLayoutPreset: 'center', // Deixa o titulo no centro por padrao
   headerTintColor: '#fff',
   headerStyle: {

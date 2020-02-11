@@ -8,7 +8,9 @@ export const Container = styled.SafeAreaView`
   flex: 1;
 `;
 
-export const Form = styled.View`
+export const Form = styled.KeyboardAvoidingView.attrs({
+  behavior: 'padding',
+})`
   background-color: #ececec;
   align-items: center;
   justify-content: flex-start;

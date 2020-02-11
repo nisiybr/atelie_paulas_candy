@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Products from './pages/Products';
 import CreateProduct from './pages/Products/CreateProduct';
+import EditProduct from './pages/Products/EditProduct';
 
 import Stock from './pages/Stock';
 import Sales from './pages/Sales';
@@ -34,6 +35,7 @@ const Routes = createAppContainer(
         screen: createStackNavigator({
           Products,
           CreateProduct,
+          EditProduct,
         }),
         navigationOptions: {
           tabBarVisible: true,

@@ -7,9 +7,10 @@ export default class ProductSchema {
         type: 'string',
       },
       name: 'string',
-      description: 'string',
+      description: 'string?',
       brand: 'string',
       neto: 'int',
+      active: {type: 'bool', default: true},
     },
   };
 }
