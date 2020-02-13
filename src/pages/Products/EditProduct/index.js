@@ -24,7 +24,7 @@ export default function EditProduct({navigation}) {
 
   useEffect(() => {
     const data = navigation.getParam('item');
-    setId(data.id);
+    setId(data.product_id);
     setName(data.name);
     setDescription(data.description);
     setBrand(data.brand);
@@ -36,7 +36,7 @@ export default function EditProduct({navigation}) {
       const netoConverted = parseInt(neto);
 
       const data = {
-        id,
+        product_id: id,
         name,
         description,
         brand,

@@ -28,11 +28,11 @@ export default function Products({navigation}) {
 
     setProducts(data);
   }
-  async function deleteProducts(id) {
+  async function deleteProducts(product_id) {
     const realm = await getRealm();
     realm.write(() => {
       const data = {
-        id,
+        product_id,
         active: false,
       };
       realm.create('Product', data, 'modified');
@@ -61,7 +61,7 @@ export default function Products({navigation}) {
         },
         {
           text: 'Quero Excluir!',
-          onPress: () => deleteProducts(item.id),
+          onPress: () => deleteProducts(item.product_id),
         },
       ],
       {cancelable: false},
@@ -72,7 +72,7 @@ export default function Products({navigation}) {
     <Container>
       <ProductList
         data={products}
-        keyExtractor={item => String(item.id)}
+        keyExtractor={item => String(item.product_id)}
         keyboardShouldPersistTaps="handled"
         renderItem={({item, index}) => (
           <Product index={index}>

@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import {KeyboardAvoidingView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import uuid from 'react-native-uuid';
 import getRealm from '../../../services/realm';
@@ -28,7 +27,7 @@ export default function CreateProduct({navigation}) {
       const netoConverted = parseInt(neto);
 
       const data = {
-        id: uuid.v1(),
+        product_id: uuid.v1(),
         name,
         description,
         brand,

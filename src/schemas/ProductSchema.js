@@ -1,9 +1,9 @@
 export default class ProductSchema {
   static schema = {
     name: 'Product',
-    primaryKey: 'id',
+    primaryKey: 'product_id',
     properties: {
-      id: {
+      product_id: {
         type: 'string',
       },
       name: 'string',

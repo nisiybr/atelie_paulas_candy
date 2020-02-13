@@ -9,7 +9,11 @@ import CreateProduct from './pages/Products/CreateProduct';
 import EditProduct from './pages/Products/EditProduct';
 
 import Stock from './pages/Stock';
+
 import Sales from './pages/Sales';
+import CreateSale from './pages/Sales/CreateSale';
+import AddProduct from './pages/Sales/CreateSale/AddProduct';
+
 import Configurations from './pages/Configurations';
 
 const tabBarOptions = {
@@ -57,7 +61,20 @@ const Routes = createAppContainer(
           ),
         },
       },
-      Sales,
+      Sales: {
+        screen: createStackNavigator({
+          Sales,
+          CreateSale,
+          AddProduct,
+        }),
+        navigationOptions: {
+          tabBarVisible: true,
+          tabBarLabel: 'Vendas',
+          tabBarIcon: ({tintColor}) => (
+            <Icon name="add-shopping-cart" size={20} color={tintColor} />
+          ),
+        },
+      },
       Configurations,
     },
     {
