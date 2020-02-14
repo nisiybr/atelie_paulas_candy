@@ -42,12 +42,19 @@ export default function AddProduct({navigation}) {
     setProductId(item);
   }
   function handleAddItem() {
-    const data = {
-      productId,
-      quantity,
-      price,
+    const data = products
+      .filter(item => item.product_id === productId)
+      .map(item => ({
+        productId,
+        product_name: item.name,
+        quantity: parseFloat(quantity),
+        price: parseFloat(price),
+      }));
+
+    const product = {
+      ...data[0],
     };
-    dispatch(CartActions.addToCartRequest(data));
+    dispatch(CartActions.addToCartRequest(product));
   }
 
   return (

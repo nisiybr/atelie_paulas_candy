@@ -8,59 +8,43 @@ import * as CartActions from '../../../store/modules/cart/actions';
 import {
   Container,
   Form,
-  ButtonView,
   DefaultButton,
   DefaultButtonText,
   Input,
   Label,
-  Item,
   SalesItems,
-  TextItem,
+  Item,
+  ItemButton,
+  ItemTextButton,
+  ItemTextName,
+  LabelView,
+  LabelText,
+  ValueView,
 } from './styles';
 
 export default function CreateSale({navigation}) {
   const [date, setDate] = useState('');
   const [desc, setDesc] = useState('');
-  const [salesItems, setSalesItems] = useState([]);
 
   const descRef = useRef();
+  const products = useSelector(state =>
+    state.cart.map(product => ({
+      ...product,
+    })),
+  );
+  // console.log(products);
+  // console.tron.log(products);
+  // useEffect(() => {
 
-  async function loadSalesItems() {
-    // const realm = await getRealm();
-    // const data = realm.objects('Sale').sorted('date', true);
-    // setSalesItems(data);
-  }
-  // async function saveSalesItems() {
-  //   try {
-  //     const realm = await getRealm();
-  //     const Product = {
-  //       product_id: uuid.v1(),
-  //       name: 'Abacaxi',
-  //       description: 'teste',
-  //       brand: 'teste',
-  //       neto: 1,
-  //     };
-  //     const data = {
-  //       sale_items_id: uuid.v1(),
-  //       Product,
-  //       amount: 3,
-  //       unit_price: 4.1,
-  //     };
-  //     realm.write(() => {
-  //       realm.create('SaleItems', data);
-  //     });
-  //     console.tron.log(data);
-  //   } catch (err) {
-  //     console.tron.log('Erro');
-  //   }
-  // }
-
-  useEffect(() => {}, []);
+  // }, [products]);
 
   function handleAddItem() {
     navigation.navigate('AddProduct');
   }
   function handleConfirm() {
+    // navigation.navigate('CreateProduct');
+  }
+  function handleEdit() {
     // navigation.navigate('CreateProduct');
   }
 
@@ -86,14 +70,26 @@ export default function CreateSale({navigation}) {
         />
       </Form>
       <SalesItems
-        data={salesItems}
-        keyExtractor={item => String(item.sale_items_id)}
+        data={products}
+        keyExtractor={item => String(item.productId)}
         keyboardShouldPersistTaps="handled"
+        // horizontal={false}
+        // numColumns={4}
         renderItem={({item, index}) => (
           <Item index={index}>
-            <TextItem>{item.amount}</TextItem>
-            <TextItem>{item.unit_price}</TextItem>
-            <TextItem>{item.amount * item.unit_price}</TextItem>
+            <ItemButton onPress={() => handleEdit(item)}>
+              <ItemTextName>{item.product_name}</ItemTextName>
+              <LabelView>
+                <LabelText>Quantidade: </LabelText>
+                <LabelText>Preço Unitário: </LabelText>
+                <LabelText>Subtotal: </LabelText>
+              </LabelView>
+              <ValueView>
+                <ItemTextButton>{item.quantity}</ItemTextButton>
+                <ItemTextButton> {item.price}</ItemTextButton>
+                <ItemTextButton>{item.price * item.quantity}</ItemTextButton>
+              </ValueView>
+            </ItemButton>
           </Item>
         )}
       />
@@ -110,7 +106,6 @@ export default function CreateSale({navigation}) {
     </Container>
   );
 }
-
 CreateSale.navigationOptions = {
   headerTitle: 'Cadastrar Venda',
   headerLayoutPreset: 'center', // Deixa o titulo no centro por padrao
