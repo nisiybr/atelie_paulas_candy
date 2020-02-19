@@ -71,7 +71,7 @@ export const Item = styled.View.attrs({
 `;
 export const ItemButton = styled(RectButton)`
   flex: 1;
-  height: 100px;
+  min-height: 100px;
   padding: 10px 15px;
   flex-direction: row;
   align-items: center;
@@ -82,10 +82,10 @@ export const ItemTextName = styled.Text`
   font-weight: bold;
   font-size: 16px;
   width: 150px;
+  padding-right: 5px;
 `;
 export const LabelView = styled.View`
   justify-content: center;
-  margin-left: 20px;
 `;
 export const ValueView = styled.View`
   justify-content: center;
