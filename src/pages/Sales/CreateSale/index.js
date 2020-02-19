@@ -1,5 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef, useMemo} from 'react';
+import {format} from 'date-fns';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Platform} from 'react-native';
 import uuid from 'react-native-uuid';
 import {useSelector, useDispatch} from 'react-redux';
 import getRealm from '../../../services/realm';
@@ -20,16 +22,29 @@ import {
   LabelView,
   LabelText,
   ValueView,
+  DatePicker,
 } from './styles';
 
 export default function CreateSale({navigation}) {
-  const [date, setDate] = useState('');
   const [desc, setDesc] = useState('');
+
+  const [date, setDate] = useState(new Date());
+  const [formattedDate, setFormattedDate] = useState('');
+  const [show, setShow] = useState(false);
+
+  useMemo(() => {
+    const value = format(date, 'dd/MM/yyyy');
+    setFormattedDate(value);
+  }, [date]);
 
   const descRef = useRef();
   const products = useSelector(state =>
     state.cart.map(product => ({
       ...product,
+      priceFormatted: String(product.price.toFixed(2)).replace('.', ','),
+      subtotalFormatted: String(
+        (product.quantity * product.price).toFixed(2),
+      ).replace('.', ','),
     })),
   );
   // console.log(products);
@@ -48,14 +63,34 @@ export default function CreateSale({navigation}) {
     // navigation.navigate('CreateProduct');
   }
 
+  function onChange(event, selectedDate) {
+    const currentDate = selectedDate || date;
+
+    setShow(false);
+    setDate(currentDate);
+    // setShow(Platform.OS === 'ios');
+  }
+  function showDatepicker() {
+    setShow(true);
+  }
+
   return (
     <Container>
       <Form>
         <Label>Data da Venda</Label>
+        {show && (
+          <DatePicker
+            timeZoneOffsetInMinutes={0}
+            value={date}
+            is24Hour
+            display="default"
+            onChange={onChange}
+          />
+        )}
         <Input
           placeholder="Selecione a Data"
-          value={date}
-          onChangeText={setDate}
+          value={formattedDate}
+          onFocus={showDatepicker}
           returnKeyType="next"
           onSubmitEditing={() => descRef.current.focus()}
         />
@@ -86,8 +121,8 @@ export default function CreateSale({navigation}) {
               </LabelView>
               <ValueView>
                 <ItemTextButton>{item.quantity}</ItemTextButton>
-                <ItemTextButton> {item.price}</ItemTextButton>
-                <ItemTextButton>{item.price * item.quantity}</ItemTextButton>
+                <ItemTextButton> {item.priceFormatted}</ItemTextButton>
+                <ItemTextButton>{item.subtotalFormatted}</ItemTextButton>
               </ValueView>
             </ItemButton>
           </Item>

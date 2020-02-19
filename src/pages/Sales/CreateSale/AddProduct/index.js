@@ -41,16 +41,23 @@ export default function AddProduct({navigation}) {
   function handleSelectItem(item) {
     setProductId(item);
   }
+  function handleCurrency(value) {
+    let str = value;
+    str = str.replace(',', '');
+    str /= 100;
+    str = str.toFixed(2);
+    str = String(str).replace('.', ',');
+    setPrice(str);
+  }
   function handleAddItem() {
     const data = products
       .filter(item => item.product_id === productId)
       .map(item => ({
         productId,
         product_name: item.name,
-        quantity: parseFloat(quantity),
-        price: parseFloat(price),
+        quantity: parseFloat(quantity.replace(',', '.')),
+        price: parseFloat(price.replace(',', '.')),
       }));
-
     const product = {
       ...data[0],
     };
@@ -75,19 +82,21 @@ export default function AddProduct({navigation}) {
         </Picker>
         <Label>Quantidade</Label>
         <Input
-          placeholder="Informe a Quantidade"
+          placeholder="0"
           value={quantity}
           onChangeText={setQuantity}
           returnKeyType="next"
           ref={quantityRef}
+          keyboardType="number-pad"
           onSubmitEditing={() => priceRef.current.focus()}
         />
         <Label>Preço Unitário</Label>
         <Input
-          placeholder="Informe Preço do Item"
+          placeholder="0,00"
           value={price}
-          onChangeText={setPrice}
+          onChangeText={event => handleCurrency(event)}
           returnKeyType="next"
+          keyboardType="number-pad"
           ref={priceRef}
         />
       </Form>

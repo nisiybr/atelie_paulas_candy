@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {RectButton} from 'react-native-gesture-handler';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export const Container = styled.KeyboardAvoidingView.attrs({
   behaviour: 'padding',
@@ -28,6 +29,17 @@ export const Label = styled.Text`
 `;
 
 export const Input = styled.TextInput.attrs({
+  autoCorrect: false,
+})`
+  background: #f7f7f7;
+  width: 100%;
+  border: 1px solid #dddddd;
+  font-size: 16px;
+  padding: 6px 20px;
+  color: #7c7c7c;
+  margin-bottom: 8px;
+`;
+export const DatePicker = styled(DateTimePicker).attrs({
   autoCorrect: false,
 })`
   background: #f7f7f7;
