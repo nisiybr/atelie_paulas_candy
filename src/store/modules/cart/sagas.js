@@ -5,7 +5,7 @@ import NavigationService from '../../../services/navigation';
 // import api from '../../../services/api';
 import {formatPrice} from '../../../util/format';
 
-import {addToCartSuccess, updateAmountSuccess} from './actions';
+import {addToCartSuccess, removeFromCartSucess} from './actions';
 
 function* addToCart({data}) {
   // const productExists = yield select(state =>
@@ -33,18 +33,32 @@ function* addToCart({data}) {
   // }
 }
 
-// function* updateAmount({id, amount}) {
-// if (amount <= 0) return;
-// const stock = yield call(api.get, `/stock/${id}`);
-// const stockAmount = stock.data.amount;
-// if (amount > stockAmount) {
-//   Alert.alert('Quantidade solicitada fora de estoque');
-//   return;
-// }
-// yield put(updateAmountSuccess(id, amount));
-// }
+function* updateAmount({data}) {
+  // if (amount <= 0) return;
+  // const stock = yield call(api.get, `/stock/${id}`);
+  // const stockAmount = stock.data.amount;
+  // if (amount > stockAmount) {
+  //   Alert.alert('Quantidade solicitada fora de estoque');
+  //   return;
+  // }
+  yield put(removeFromCartSucess(data.productId));
+  yield put(addToCartSuccess(data));
+  NavigationService.navigate('CreateSale');
+}
+function* removeFromCart({id}) {
+  // if (amount <= 0) return;
+  // const stock = yield call(api.get, `/stock/${id}`);
+  // const stockAmount = stock.data.amount;
+  // if (amount > stockAmount) {
+  //   Alert.alert('Quantidade solicitada fora de estoque');
+  //   return;
+  // }
+  yield put(removeFromCartSucess(id));
+  NavigationService.navigate('CreateSale');
+}
 
 export default all([
   takeLatest('@cart/ADD_REQUEST', addToCart),
-  // takeLatest('@cart/UPDATE_AMOUNT_REQUEST', updateAmount),
+  takeLatest('@cart/UPDATE_AMOUNT_REQUEST', updateAmount),
+  takeLatest('@cart/REMOVE_REQUEST', removeFromCart),
 ]);

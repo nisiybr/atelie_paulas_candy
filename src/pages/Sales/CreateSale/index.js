@@ -47,20 +47,15 @@ export default function CreateSale({navigation}) {
       ).replace('.', ','),
     })),
   );
-  // console.log(products);
-  // console.tron.log(products);
-  // useEffect(() => {
-
-  // }, [products]);
 
   function handleAddItem() {
-    navigation.navigate('AddProduct');
+    navigation.navigate('AddSaleProduct');
   }
   function handleConfirm() {
     // navigation.navigate('CreateProduct');
   }
-  function handleEdit() {
-    // navigation.navigate('CreateProduct');
+  function handleEdit(item) {
+    navigation.navigate('EditSaleProduct', {item});
   }
 
   function onChange(event, selectedDate) {

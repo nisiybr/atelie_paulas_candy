@@ -12,25 +12,29 @@ export function addToCartSuccess(product) {
   };
 }
 
-export function removeFromCart(id) {
+export function removeFromCartRequest(id) {
   return {
-    type: '@cart/REMOVE',
+    type: '@cart/REMOVE_REQUEST',
+    id,
+  };
+}
+export function removeFromCartSucess(id) {
+  return {
+    type: '@cart/REMOVE_SUCESS',
     id,
   };
 }
 
-export function updateAmountRequest(id, amount) {
+export function updateAmountRequest(data) {
   return {
     type: '@cart/UPDATE_AMOUNT_REQUEST',
-    id,
-    amount,
+    data,
   };
 }
 
-export function updateAmountSuccess(id, amount) {
-  return {
-    type: '@cart/UPDATE_AMOUNT_SUCCESS',
-    id,
-    amount,
-  };
-}
+// export function updateAmountSuccess(product) {
+//   return {
+//     type: '@cart/UPDATE_AMOUNT_SUCCESS',
+//     product,
+//   };
+// }

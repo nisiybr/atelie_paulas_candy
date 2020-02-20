@@ -12,7 +12,8 @@ import Stock from './pages/Stock';
 
 import Sales from './pages/Sales';
 import CreateSale from './pages/Sales/CreateSale';
-import AddProduct from './pages/Sales/CreateSale/AddProduct';
+import AddSaleProduct from './pages/Sales/CreateSale/AddSaleProduct';
+import EditSaleProduct from './pages/Sales/CreateSale/EditSaleProduct';
 
 import Configurations from './pages/Configurations';
 
@@ -65,7 +66,8 @@ const Routes = createAppContainer(
         screen: createStackNavigator({
           Sales,
           CreateSale,
-          AddProduct,
+          AddSaleProduct,
+          EditSaleProduct,
         }),
         navigationOptions: {
           tabBarVisible: true,

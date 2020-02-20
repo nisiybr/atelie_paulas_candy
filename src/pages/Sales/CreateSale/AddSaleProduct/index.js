@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import getRealm from '../../../../services/realm';
 import * as CartActions from '../../../../store/modules/cart/actions';
 import {
@@ -13,8 +13,14 @@ import {
   Picker,
 } from './styles';
 
-export default function AddProduct({navigation}) {
+export default function AddSaleProduct({navigation}) {
   const dispatch = useDispatch();
+
+  const cart = useSelector(state =>
+    state.cart.map(product => ({
+      productId: product.productId,
+    })),
+  );
 
   const [productId, setProductId] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -30,12 +36,28 @@ export default function AddProduct({navigation}) {
       .objects('Product')
       .sorted('name')
       .filtered('active=true');
+    // console.tron.log(cart);
+    // console.tron.log(data);
 
-    setProducts(data);
+    if (cart.length > 0) {
+      const result = data.filter(comboItems => {
+        return !cart.some(cartItems => {
+          return comboItems.product_id === cartItems.productId;
+        });
+      });
+      setProducts(result);
+    } else {
+      setProducts(data);
+    }
+
+    // const result = data.filter(item => {
+    //   return
+    // });
   }
 
   useEffect(() => {
     loadProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleSelectItem(item) {
@@ -108,7 +130,7 @@ export default function AddProduct({navigation}) {
   );
 }
 
-AddProduct.navigationOptions = {
+AddSaleProduct.navigationOptions = {
   headerTitle: 'Adicionar Item à Venda',
   headerLayoutPreset: 'center', // Deixa o titulo no centro por padrao
   headerTintColor: '#fff',
