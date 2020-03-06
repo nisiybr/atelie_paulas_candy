@@ -71,8 +71,8 @@ export const Item = styled.View.attrs({
 `;
 export const ItemButton = styled(RectButton)`
   flex: 1;
-  min-height: 100px;
-  padding: 10px 15px;
+  min-height: 50px;
+  padding: 4px 15px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -94,13 +94,13 @@ export const ValueView = styled.View`
 export const LabelText = styled.Text`
   color: #4743ff;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   text-align: left;
 `;
 export const ItemTextButton = styled.Text`
   color: #4743ff;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   text-align: right;
 `;
 
@@ -117,5 +117,24 @@ export const DefaultButtonText = styled.Text`
   color: #ffffff;
   margin-left: 10px;
   font-weight: bold;
+  font-size: 16px;
+`;
+export const Total = styled.View`
+  height: 30px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding-left: 150px;
+`;
+export const TotalLabel = styled.Text`
+  color: #323232;
+  font-weight: bold;
+  padding: 0 20px;
+  font-size: 16px;
+`;
+export const TotalValue = styled.Text`
+  color: #323232;
+  font-weight: bold;
+  padding: 0 20px;
   font-size: 16px;
 `;

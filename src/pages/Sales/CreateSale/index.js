@@ -1,4 +1,4 @@
-import React, {useState, useRef, useMemo} from 'react';
+import React, {useState, useRef, useMemo, useEffect} from 'react';
 import {format} from 'date-fns';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Platform} from 'react-native';
@@ -23,11 +23,15 @@ import {
   LabelText,
   ValueView,
   DatePicker,
+  Total,
+  TotalLabel,
+  TotalValue,
 } from './styles';
 
 export default function CreateSale({navigation}) {
-  const [desc, setDesc] = useState('');
+  const descRef = useRef();
 
+  const [desc, setDesc] = useState('');
   const [date, setDate] = useState(new Date());
   const [formattedDate, setFormattedDate] = useState('');
   const [show, setShow] = useState(false);
@@ -37,7 +41,6 @@ export default function CreateSale({navigation}) {
     setFormattedDate(value);
   }, [date]);
 
-  const descRef = useRef();
   const products = useSelector(state =>
     state.cart.map(product => ({
       ...product,
@@ -46,6 +49,14 @@ export default function CreateSale({navigation}) {
         (product.quantity * product.price).toFixed(2),
       ).replace('.', ','),
     })),
+  );
+
+  const totalValue = useSelector(state =>
+    String(
+      state.cart
+        .reduce((total, product) => total + product.price * product.quantity, 0)
+        .toFixed(2),
+    ).replace('.', ','),
   );
 
   function handleAddItem() {
@@ -123,7 +134,10 @@ export default function CreateSale({navigation}) {
           </Item>
         )}
       />
-
+      <Total>
+        <TotalLabel>Total</TotalLabel>
+        <TotalValue>{totalValue}</TotalValue>
+      </Total>
       <DefaultButton onPress={handleAddItem} index={1}>
         <Icon name="add-circle" size={30} color="#fff" />
         <DefaultButtonText>Adicionar Novo Item</DefaultButtonText>
