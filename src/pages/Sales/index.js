@@ -12,31 +12,32 @@ import {
 } from './styles';
 
 export default function Sales({navigation}) {
-  const [products, setProducts] = useState([]);
+  const [sales, setSales] = useState([]);
 
-  async function loadProducts() {
+  async function loadSales() {
     const realm = await getRealm();
     const data = realm.objects('Sale').sorted('date', true);
 
-    setProducts(data);
+    setSales(data);
   }
   useEffect(() => {
-    loadProducts();
+    loadSales();
   }, []);
 
   function handleNavigate() {
+    console.tron.log(sales);
     navigation.navigate('CreateSale');
   }
 
   return (
     <Container>
       <SalesList
-        data={products}
-        keyExtractor={item => String(item.product_id)}
+        data={sales}
+        keyExtractor={item => String(item.sale_id)}
         keyboardShouldPersistTaps="handled"
         renderItem={({item, index}) => (
           <Sale index={index}>
-            <SaleDesc>{item.name}</SaleDesc>
+            <SaleDesc>{item.desc}</SaleDesc>
           </Sale>
         )}
       />

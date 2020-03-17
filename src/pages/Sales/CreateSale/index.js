@@ -62,8 +62,35 @@ export default function CreateSale({navigation}) {
   function handleAddItem() {
     navigation.navigate('AddSaleProduct');
   }
-  function handleConfirm() {
-    // navigation.navigate('CreateProduct');
+  async function handleConfirm() {
+    try {
+      const total = parseFloat(totalValue.replace(',', '.'));
+
+      const sale = {
+        sale_id: uuid.v1(),
+        date,
+        desc,
+        total,
+      };
+      const realm = await getRealm();
+      realm.write(() => {
+        realm.create('Sale', sale);
+      });
+      navigation.navigate('Sales');
+      // products.map(item => {
+      //   console.tron.log(item);
+      // });
+
+      // const data = {
+      //   sale_items_id: uuid.v1(),
+      //   Product,
+      //   amount,
+      //   unit_price,
+      //   total: netoConverted,
+      // };
+    } catch (err) {
+      console.tron.log('Erro');
+    }
   }
   function handleEdit(item) {
     navigation.navigate('EditSaleProduct', {item});

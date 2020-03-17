@@ -6,7 +6,6 @@ export default class SaleSchema {
       sale_id: 'string',
       date: 'date',
       desc: 'string?',
-      items: {type: 'list', objectType: 'SaleItems'},
       total: 'float',
     },
   };
